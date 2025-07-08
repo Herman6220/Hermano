@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
 
                     if(isPasswordCorrect){
                         return {
-                            _id: user._id.toString(),
+                            _id: user._id?.toString(),
                             email: user.email,
                             activeRole: "CUSTOMER"
                         }
@@ -76,7 +76,7 @@ export const authOptions: NextAuthOptions = {
 
                     if(isPasswordCorrect){
                         return {
-                            _id: user._id.toString(),
+                            _id: user._id?.toString(),
                             email: user.email,
                             activeRole: "PROFESSIONAL"
                         }

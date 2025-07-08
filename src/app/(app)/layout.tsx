@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
 
 
 const geistSans = Geist({
@@ -32,10 +33,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0d0012]`}
       >
+        <Suspense>
         <Navbar />
         {children}
         <Toaster />
         <Footer />
+        </Suspense>
       </body>
       </AuthProvider>
     </html>

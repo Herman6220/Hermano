@@ -15,7 +15,7 @@ import { User } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 function page() {
@@ -160,11 +160,12 @@ function page() {
 
   return (
     <div className="flex justify-center items-center w-full py-5 pb-15 min-h-[80vh]">
+      
       {isLoading ? (
         <Loader2 className='w-10 h-10 animate-spin' />
       ) : (
         <>
-
+          
           <div className='flex flex-col justify-start w-5xl min-h-[80vh] items-center'>
             {searchResults && searchResults.length > 0 ? (
               <>
@@ -347,15 +348,18 @@ function page() {
                     </div>
                   )}
                 </div>
+                
               </>
+
             ) : (
               <p>No professionals available for this service</p>
-
             )}
-
           </div>
+          
         </>
+        
       )}
+      
     </div>
   )
 }
