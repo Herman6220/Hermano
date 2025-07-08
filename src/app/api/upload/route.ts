@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 
 
 cloudinary.config({
+    cloud_url: process.env.CLOUDINARY_URL,
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
@@ -10,7 +11,7 @@ cloudinary.config({
 
 interface CloudinaryUploadResult {
     public_id: string,
-    [key: string]: any
+    [key: string]: any 
 }
 
 export async function POST(request: NextRequest){
