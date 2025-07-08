@@ -1,0 +1,65 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import dbConnect from "@/lib/dbConnect";
+import CartModel from "@/model/Cart";
+import CustomerModel from "@/model/Customer";
+import mongoose from "mongoose";
+import { getServerSession, User } from "next-auth";
+
+export async function DELETE(request: Request){
+    await dbConnect()
+
+    const session = await getServerSession(authOptions)
+
+    const user:User = session?.user as User
+
+    if(!session || session.user.activeRole !== "CUSTOMER"){
+        return Response.json({
+            success: false,
+            message: "Not Authenticated"
+        }, {status: 404})
+    }
+
+    const {professionalServiceId} = await request.json()
+    console.log(professionalServiceId)
+    if(!professionalServiceId){
+        return Response.json({
+            success: false,
+            message: "Invalid Input"
+        }, {status: 404})
+    }
+
+    const userId = new mongoose.Types.ObjectId(user._id)
+    try {
+        const customer = await CustomerModel.findOne({userId})
+        if(!customer){
+            return Response.json({
+                success: false,
+                message: "Customer not found"
+            }, {status: 404})
+        }
+
+        await CartModel.updateOne(
+            {customerId: customer._id},
+            {
+                $pull: {
+                    cartItems: {
+                        "professionalService._id": professionalServiceId
+                    }
+                }
+            }
+        )
+
+        return Response.json({
+            success: true,
+            message: "Item removed from cart successfully"
+        }, {status: 200})
+    } catch (error) {
+        console.error("An error occured while removing item from cart", error)
+        return Response.json({
+            success: false,
+            message: "Internal Server Error"
+        }, {status: 500})
+    }
+
+
+}
