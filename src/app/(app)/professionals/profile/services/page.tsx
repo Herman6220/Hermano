@@ -283,7 +283,7 @@ function page() {
 
   return (
     <>
-      <div className='flex items-center justify-center min-h-[80vh]'>
+      <div className='flex items-center justify-center min-h-[80vh] bg-[#0d0012]'>
         {isLoading ? (
           <Loader2 className='w-10 h-10 animate-spin' />
         ) : (
@@ -297,8 +297,8 @@ function page() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Card className='w-5xl min-h-50 p-6 rounded-3xl flex flex-col gap-2'>
-                            <div className='w-full h-30 bg-gray-50 rounded-xl px-14 py-4' style={{ boxShadow: "inset 0 0 5px 0.5px rgba(0, 0, 0, 0.1)" }}>
+                          <Card className='w-5xl min-h-50 p-6 rounded-3xl flex flex-col gap-2 bg-blue-300 border-none shadow-none'>
+                            <div className='w-full h-30 bg-blue-400 rounded-xl px-14 py-4' style={{ boxShadow: "inset 0 0 5px 2px rgba(0, 0, 0, 0.2)" }}>
                               <div className='flex items-center justify-between gap-8 h-full'>
                                 <div>
                                   <div className='flex justify-between items-center'>
@@ -506,7 +506,7 @@ function page() {
                                   (displayServices as any).map((display: any) =>
                                     <>
                                     <div>
-                                    <Card className="relative group md:h-14 px-4 overflow-hidden rounded-xl">
+                                    <Card className="relative group md:h-14 px-4 overflow-hidden rounded-xl ">
                                       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:place-items-center place-content-center">
                                         <CardTitle className="truncate max-w-full">{display.serviceId}</CardTitle>
                                         <div className="truncate max-w-full">{display.description}</div>
@@ -558,10 +558,10 @@ function page() {
               <Separator />
               {professionalServices ? (
                 <div className='flex flex-col gap-3'>
-                  <div className="px-4"><h1 className="text-2xl">Your services ( <span className="text-xl">{professionalServices.length}</span> )</h1></div>
+                  <div className="px-4"><h1 className="text-2xl text-white">Your services ( <span className="text-xl">{professionalServices.length}</span> )</h1></div>
                   {professionalServices.map((professionalService: any) =>
-                    <Card key={professionalService?._id} className={`h-50 p-4 w-5xl rounded-3xl grid grid-cols-5 overflow-hidden ${professionalService.isServiceActive ? "" : "bg-gray-100"}`}>
-                      <div className='h-full aspect-square overflow-hidden border rounded-xl bg-white'>
+                    <Card key={professionalService?._id} className={`h-50 p-4 w-5xl rounded-3xl grid grid-cols-5 overflow-hidden border-none shadow-none bg-gradient-to-br from-blue-400 to-blue-300`}>
+                      <div className='h-full aspect-square overflow-hidden rounded-xl'>
                         <img
                           src={professionalService?.images[0]}
                           alt='service image'
@@ -570,16 +570,16 @@ function page() {
                       </div>
                       <div className='col-span-3 flex flex-col justify-between'>
                         <div>
-                          <h3>{professionalService?.matchedServices?.title}</h3>
-                          <CardDescription className='line-clamp-3'>{professionalService?.description}</CardDescription>
+                          <h3 className="text-white font-bold">{professionalService?.matchedServices?.title}</h3>
+                          <CardDescription className='line-clamp-3 text-blue-950'>{professionalService?.description}</CardDescription>
                         </div>
                         <div className='flex gap-2 items-center'>
                           <div className='flex'>
                             {[1, 2, 3, 4, 5].map((star) =>
-                              <Star className='w-3' fill={professionalService?.averageRating >= star ? "black" : "none"} />
+                              <Star className='w-3' stroke="white" fill={professionalService?.averageRating >= star ? "black" : "none"} />
                             )}
                           </div>
-                          <div><p>{professionalService?.reviewsCount}</p></div>
+                          <div><p className="text-white">{professionalService?.reviewsCount}</p></div>
                         </div>
                       </div>
                       <div className='flex flex-col items-end justify-between h-full'>

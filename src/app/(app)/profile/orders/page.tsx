@@ -36,7 +36,7 @@ function page() {
 
   return (
     <>
-      <div className='flex items-center justify-center min-h-[80vh]'>
+      <div className='flex items-center justify-center min-h-[80vh] bg-[#0d0012]'>
         {isLoading ? (
           <>
             <Loader2 className='w-10 h-10 animate-spin' />
@@ -44,15 +44,16 @@ function page() {
         ) : (
           <>
             <div className='w-full min-h-[80vh] flex justify-center'>
-              <div className='w-5xl flex flex-col'>
+              <div className='w-5xl flex flex-col gap-2'>
                 {orders ? (
                   <>
                     {orders.map((order: any) => (
                       <>
-                      <Separator></Separator>
-                        <Card className='w-full h-28 border-none shadow-none overflow-hidden p-4'>
+                      {/* <Separator></Separator> */}
+                      <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
+                        <Card className='w-full h-28 border-none shadow-none overflow-hidden p-4 bg-[#13000b]'>
                           <div className='grid grid-cols-7 gap-2 w-full h-full'>
-                          <div className='flex border items-center justify-center overflow-hidden h-full w-30 rounded-lg'>
+                          <div className='flex items-center justify-center overflow-hidden h-full w-30 rounded-lg'>
                             <img 
                               src={order.professionalServices.professionalService?.images?.[0]}
                               alt='image'
@@ -61,7 +62,7 @@ function page() {
                           </div>
                           <div className='flex flex-col justify-between'>
                             <div>
-                              <CardTitle>{order.matchedServices.title}</CardTitle>
+                              <CardTitle className='text-white'>{order.matchedServices.title}</CardTitle>
                             </div>
                             <div className='flex gap-2 items-center'>
                             <div>
@@ -71,35 +72,35 @@ function page() {
                                 className='w-7 h-7 rounded-full'
                               />
                             </div>
-                            <p>{order.matchedProfessionals.fullname}</p>
+                            <p className='text-white'>{order.matchedProfessionals.fullname}</p>
                             </div>
                           </div>
                           <div className='flex item-center justify-center'>
                             <div className='flex flex-col justify-center'>
                               <h2 className='text-sm text-gray-500 text-center'>Ordered on</h2>
-                              <h4 className='text-center'>{format(new Date(order.createdAt), "dd MMMM yyyy")}</h4>
+                              <h4 className='text-center text-white'>{format(new Date(order.createdAt), "dd MMMM yyyy")}</h4>
                             </div>
                           </div>
                           <div className='flex item-center justify-center'>
                             <div className='flex flex-col justify-center'>
                               <h2 className='text-sm text-gray-500 text-center'>Quantity</h2>
-                              <h4 className='text-center'>{order.professionalServices.quantity}</h4>
+                              <h4 className='text-center text-white'>{order.professionalServices.quantity}</h4>
                             </div>
                           </div>
                           <div className='flex item-center justify-center'>
                             <div className='flex flex-col justify-center'>
                               <h2 className='text-sm text-gray-500 text-center'>Price</h2>
-                              <h4 className='text-center'>{((order.professionalServices.professionalService.price)/100).toFixed(2)}</h4>
+                              <h4 className='text-center text-white'>{((order.professionalServices.professionalService.price)/100).toFixed(2)}</h4>
                             </div>
                           </div>
                           <div className='flex item-center justify-center'>
                             <div className='flex flex-col justify-center'>
                               <h2 className='text-sm text-gray-500 text-center'>Total Price</h2>
-                              <h4 className='text-center'>{((order.totalAmount)/100).toFixed(2)}</h4>
+                              <h4 className='text-center text-white'>{((order.totalAmount)/100).toFixed(2)}</h4>
                             </div>
                           </div>
                           <div className='flex items-end justify-end'>
-                            <div className='rounded-full bg-blue-200 w-3/4 py-1'>
+                            <div className='rounded-full bg-blue-500/50 border border-blue-500 w-3/4 py-1'>
                               <p className='text-center text-xs text-blue-500'>{order.status}</p>
                             </div>
                           </div>
@@ -107,7 +108,7 @@ function page() {
                         </Card>
                       </>
                     ))}
-                    <Separator></Separator>
+                    <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                   </>
                 ) : (
                   <>

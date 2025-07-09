@@ -44,6 +44,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ serv
       {
         $match: {
           serviceId: newServiceId,
+          isServiceActive: true,
           ...(minPrice || maxPrice ? {
             price: {
               ...(minPrice ? { $gte: Number(minPrice) } : {}),

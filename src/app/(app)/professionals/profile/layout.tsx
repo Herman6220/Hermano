@@ -13,11 +13,11 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
   const user: User = session?.user as User
 
   return (
-    <div className="flex min-h-[36rem]">
+    <div className="flex min-h-[36rem] bg-[#0d0012]">
       {!session || session.user.activeRole !== "PROFESSIONAL" ? (
         <>
           <div className='flex flex-col gap-2 items-center justify-center w-full min-h-[36rem]'>
-            <p>Login as Professional to get your profile.</p>
+            <p className='text-white'>Login as Professional to get your profile.</p>
             <Link
               href="/professionals/sign-in"
             >
@@ -28,13 +28,13 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
       ) : (
         <>
           {/* Sidebar */}
-          <aside className="w-64 bg-blue-50 p-4 py-5 border-r">
+          <aside className="w-64 bg-[#0d0012] p-4 py-5 border-r border-blue-500/30">
             <nav className="flex flex-col gap-4 w-full">
               <Link
                 href="/professionals/profile/dashboard"
               >
                 <button className={clsx(
-                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full',
+                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full text-white',
                   pathname === '/professionals/profile/dashboard' && 'font-bold text-white bg-gradient-to-br from-blue-700 to-blue-400 shadow-md'
                 )}>Overview</button>
               </Link>
@@ -43,7 +43,7 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
                 href="/professionals/profile/orders"
               >
                 <button className={clsx(
-                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full',
+                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full text-white',
                   pathname === '/professionals/profile/orders' && 'font-bold text-white bg-gradient-to-br from-blue-700 to-blue-400 shadow-md'
                 )}>Orders</button>
               </Link>
@@ -53,7 +53,7 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
                 className=''
               >
                 <button className={clsx(
-                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full',
+                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full text-white',
                   pathname === '/professionals/profile/account' && 'font-bold text-white bg-gradient-to-br from-blue-700 to-blue-400 shadow-md'
                 )}>My Account</button>
               </Link>
@@ -62,7 +62,7 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
                 href="/professionals/profile/services"
               >
                 <button className={clsx(
-                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full',
+                  'flex text-left p-2 rounded-sm hover:bg-violet-300 w-full text-white',
                   pathname === '/professionals/profile/services' && 'font-bold text-white bg-gradient-to-br from-blue-700 to-blue-400 shadow-md'
                 )}>Services</button>
               </Link>

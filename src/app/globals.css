@@ -140,3 +140,10 @@
   }
 }
 
+
+[data-sonner-toast] {
+  background-color: #4a75eb !important; /* e.g., Tailwind blue-900 */
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important;
+}

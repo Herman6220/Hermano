@@ -29,14 +29,16 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0d0012]`}
       >
         <Script 
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="lazyOnload"
         />
         {children}    
-        <Toaster />
+        <Toaster 
+          
+        />
       </body>
       </AuthProvider>
     </html>

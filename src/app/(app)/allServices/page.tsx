@@ -47,7 +47,7 @@ function page() {
 
 
   return (
-    <div className='flex flex-col justify-center items-center w-full py-5 pb-15 min-h-[80vh]'>
+    <div className='flex flex-col justify-center items-center w-full py-5 pb-15 min-h-[80vh] bg-[#0d0012]'>
       {isLoading ? (
         <>
           <Loader2 className='w-10 h-10 animate-spin' />
@@ -65,16 +65,16 @@ function page() {
               className='w-full px-24'>
                 <h3 className='text-2xl'>All services</h3>
               </div>
-              <div className="px-12 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 w-full place-items-center">
+              <div className="px-12 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-10 w-full place-items-center">
               {(services as any).map((service: any) => (
                 <div
                 data-aos="fade-up"
                 >
                 <Card
                   key={service._id}
-                  className="w-100 h-60 hover:scale-105 hover:shadow-lg transition-transform duration-300 rounded-3xl shadow-md shadow-blue-100 px-6"
+                  className="w-100 h-60 hover:scale-105 transition-transform duration-300 rounded-3xl shadow-none px-6 bg-blue-500 border-none"
                   onClick={() => handleServicesNavigation(service._id, service.title)}>
-                    <CardTitle>{service.title}</CardTitle>
+                    <CardTitle className='text-white'>{service.title}</CardTitle>
                 </Card>
                 </div>
                 

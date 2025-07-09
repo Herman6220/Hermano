@@ -6,28 +6,25 @@ import { redirect, usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { Button } from './ui/button';
 import Link from 'next/link';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import { Separator } from './ui/separator';
 import { Input } from './ui/input';
 import axios, { AxiosError } from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
 import { useDebounceCallback } from "usehooks-ts"
 import { Loader2 } from 'lucide-react';
+import { ScrollArea } from './ui/scroll-area';
 
 function Navbar() {
 
+
+  const [showSuggestions, setShowSuggestions] = useState(false)
   const [searchInput, setSearchInput] = useState("")
   const [suggestions, setSuggestions] = useState<any[]>([])
   const [isGettingSuggestions, setIsgettingSuggestions] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const suggestionsDropdownRef = useRef<HTMLDivElement>(null)
 
   const debounced = useDebounceCallback(setSearchInput, 300)
 
@@ -62,6 +59,9 @@ function Navbar() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
+      if (suggestionsDropdownRef.current && !suggestionsDropdownRef.current.contains(event.target as Node)){
+        setShowSuggestions(false)
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -77,13 +77,13 @@ function Navbar() {
 
 
   return (
-    <nav className='p-2 md:p-4 shadow-md sticky top-0 z-50 bg-blue-500/80 backdrop-blur-sm w-full flex items-center justify-between'>
+    <nav className='p-2 md:p-4 shadow-md sticky top-0 z-50 bg-blue-400 backdrop-blur-sm w-full flex items-center justify-between'>
       <div>
         <a className='text-xl font-bold' href='/'>Hermano.</a>
       </div>
 
-      <div className='relative'>
-        <div className='flex gap-2 items-center w-110 border-1 pl-4 pr-1 rounded-full h-10 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-indigo-500 transition-all duration-75 ease-in-out shadow-sm'>
+      <div className='relative' ref={suggestionsDropdownRef}>
+        <div className='flex gap-2 items-center w-110 border-1 pl-4 pr-1 rounded-full h-10 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-blue-500 transition-all duration-75 ease-in-out shadow-md'>
 
           <input
             className='w-full focus:border-none focus:outline-none focus:ring-0'
@@ -96,14 +96,18 @@ function Navbar() {
                 handleNavigate(searchInput)
               }
             }}
+            onFocus={() => {
+              console.log("Focus event triggered");
+              setShowSuggestions(true)
+            }}
           />
           <span>
             {isGettingSuggestions ? (
-              <Loader2 className='w-4 h-4 animate-spin' />
+              <Loader2 className='w-4 h-4 animate-spin mx-1' />
             ) : (
               <>
                 <button
-                  className='p-2 rounded-full hover:bg-gray-200'
+                  className='p-2 rounded-full hover:bg-blue-500/50'
                   onClick={() => handleNavigate(searchInput)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4 text-gray-700">
@@ -112,25 +116,27 @@ function Navbar() {
                 </button>
               </>)}
           </span>
-          {searchInput && !isGettingSuggestions ? (
+          {searchInput && !isGettingSuggestions && showSuggestions ? (
             suggestions.length > 0 ? (
-              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-white border border-gray-200 rounded-lg shadow z-10 overflow-y-auto'>
+              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/80 border border-blue-950 rounded-lg shadow z-10'>
+                <ScrollArea className='max-h-40 flex flex-col'>
                 {suggestions.map((suggestion: any) =>
                   <div
-                    className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
+                    className='px-4 py-2 hover:bg-gray-800 cursor-pointer'
                   >
                     <button
                       onClick={() => handleNavigate(suggestion)}
-                      className='w-full bg-red text-left'
+                      className='w-full bg-red text-left text-white'
                     >
                       {suggestion}
                     </button>
                   </div>
                 )}
+                </ScrollArea>
               </div>
             ) : (
-              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-white border border-gray-200 rounded-lg shadow z-10'>
-                <div className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>No services found...</div>
+              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/80 border border-blue-950 rounded-lg shadow z-10'>
+                <div className='px-4 py-2 hover:bg-gray-800 cursor-pointer text-white'>No services found...</div>
               </div>
             )
           ) : (
@@ -154,7 +160,7 @@ function Navbar() {
             <div className='flex w-5 h-5 items-center justify-center'>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className='hover:bg-gray-200 p-2 rounded-full'
+                className='hover:bg-blue-500/50 p-2 rounded-full'
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,39 +173,43 @@ function Navbar() {
             </div>
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-60 p-2 border-1 border-gray-300">
+              <div className="absolute right-0 mt-2 w-48 bg-black/80 rounded-xl shadow-lg z-60 p-1 px-2 border-1 border-blue-950">
                 <div >
                   {session ? (
                     <>
                       {isProfessionalDashboard ? (
                         <>
+                        <div className='flex flex-col gap-1'>
                           <Link href="/professionals/profile">
                             <button
-                              className="block px-2 py-2 text-black hover:bg-gray-200 w-full justify-center my-1 rounded-md">
+                              className="block px-2 py-2 text-white hover:bg-gray-800 w-full justify-center my-1 rounded-md">
                               Profile
                             </button>
                           </Link>
-                          <Separator />
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           <button
                             onClick={() => signOut()}
-                            className="block px-2 py-2 text-black hover:bg-gray-200 w-full justify-center my-1 rounded-md">
+                            className="block px-2 py-2 text-white bg-red-500 hover:bg-red-700 w-full justify-center my-1 rounded-md">
                             Log Out
                           </button>
+                          </div>
                         </>
                       ) : (
                         <>
+                        <div className='flex flex-col gap-1'>
                           <Link href="/profile">
                             <button
-                              className="block px-2 py-2 text-black hover:bg-gray-200 w-full justify-center my-1 rounded-md">
+                              className="block px-2 py-2 text-white hover:bg-gray-800 w-full justify-center my-1 rounded-md">
                               Profile
                             </button>
                           </Link>
-                          <Separator />
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           <button
                             onClick={() => signOut()}
-                            className="block px-2 py-2 text-black  hover:bg-gray-200 w-full justify-center my-1 rounded-md">
+                            className="block px-2 py-2 text-white bg-red-500 hover:bg-red-700 w-full justify-center my-1 rounded-md">
                             Log Out
                           </button>
+                          </div>
                         </>
                       )}
                     </>
@@ -209,7 +219,7 @@ function Navbar() {
 
                         <Link href="/professionals/sign-in">
                           <button
-                            className="block px-2 py-2 text-black hover:bg-gray-100 w-full justify-center my-1 rounded-md">
+                            className="block px-2 py-2 text-white bg-blue-500 hover:bg-blue-700 w-full justify-center my-1 rounded-md">
                             Login
                           </button>
                         </Link>
@@ -218,7 +228,7 @@ function Navbar() {
 
                         <Link href="/sign-in">
                           <button
-                            className="block px-2 py-2 text-black hover:bg-gray-100 w-full justify-center my-1 rounded-md">
+                            className="block px-2 py-2 text-white bg-blue-500 hover:bg-blue-700 w-full justify-center my-1 rounded-md">
                             Login
                           </button>
                         </Link>
@@ -238,7 +248,7 @@ function Navbar() {
             <Link href="/cart">
               <div className='flex w-5 h-5 items-center justify-center'>
                 <button
-                  className='hover:bg-gray-200 p-2 rounded-full'
+                  className='hover:bg-blue-500/50 p-2 rounded-full'
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

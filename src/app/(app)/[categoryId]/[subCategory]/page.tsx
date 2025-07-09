@@ -42,7 +42,7 @@ function Page() {
   }, [fetchSubCategory])
 
   return (
-    <div className="flex flex-col justify-center items-center w-full py-5 pb-15 min-h-[80vh]">
+    <div className="flex flex-col justify-center items-center w-full py-5 pb-15 min-h-[80vh] bg-[#0d0012]">
       {isLoading ? (
         <Loader2 className="w-10 h-10 animate-spin" />
       ) : (
@@ -51,7 +51,7 @@ function Page() {
             (subCategories as any).map((subCategory: any) => (
               <Card
                 key={subCategory._id}
-                className="w-100 h-60 hover:scale-105 hover:shadow-lg transition-transform duration-300 rounded-3xl shadow-md shadow-blue-100"
+                className="w-100 h-60 hover:scale-105 transition-transform duration-300 rounded-3xl shadow-none bg-blue-500 border-none"
                 onClick={() => handleNavigation(subCategory._id, subCategory.title)}>
                 <CardHeader>
                   <CardTitle>{subCategory.title}</CardTitle>

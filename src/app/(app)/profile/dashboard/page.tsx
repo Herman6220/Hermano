@@ -36,7 +36,7 @@ function page() {
 
 
   return (
-    <div className='flex justify-center items-center min-h-[80vh]'>
+    <div className='flex justify-center items-center min-h-[80vh] bg-[#0d0012]'>
       {isLoading ? (
         <>
           <Loader2 className='w-10 h-10 animate-spin' />
@@ -45,24 +45,25 @@ function page() {
         <>
           <div className='w-full min-h-[80vh]'>
             <div>
-              <Card className='px-6'>
+              <Card className='px-6 bg-gradient-to-br from-blue-400 to-blue-300 border-none shadow-none'>
                 <div className="flex divide-x divide-gray-300 w-full min-h-24">
                   <div className="flex-1 px-4 text-left">
-                    <h1 className='text-3xl font-light mb-2'>Welcome, <span className='font-medium'>{customer?.fullname}</span></h1>
-                    <p>{customer?.email}</p>
+                    <h1 className='text-3xl font-light mb-2 text-white'>Welcome, <span className='font-medium'>{customer?.fullname}</span></h1>
+                    <p className='text-white'>{customer?.email}</p>
                   </div>
                   <div className="flex-1 px-4 text-left">
-                    <p className='text-gray-500 border-b inline-block mb-2'>Contacts</p>
-                    <p>{customer?.phone}</p>
+                    <p className='text-blue-950 border-b inline-block mb-2'>Contacts</p>
+                    <p className='text-white'>{customer?.phone}</p>
                   </div>
                   <div className="flex-1 px-4 text-left">
-                    <p className='text-gray-500 border-b inline-block mb-2'>Addressess</p>
-                    <p>{customer?.address}</p>
+                    <p className='text-blue-950 border-b inline-block mb-2'>Addressess</p>
+                    <p className='text-white'>{customer?.address}</p>
                   </div>
                 </div>
 
               </Card>
-              <Separator className='my-4' />
+              {/* <Separator className='my-4' /> */}
+              <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
             </div>
           </div>
         </>

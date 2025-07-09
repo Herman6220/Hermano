@@ -22,6 +22,9 @@ export function addToLocalCart(professionalService: any){
     if(!exists){
         cart.push({professionalService: professionalService, quantity: quantity});
         saveLocalCart(cart);
+        return "Item successfully added to the cart"
+    }else{
+        return "Item already exists in the cart"
     }
 }
 

@@ -56,7 +56,7 @@ function page() {
 
 
     return (
-        <div className='flex items-center justify-center min-h-[80vh]'>
+        <div className='flex items-center justify-center min-h-[80vh] bg-[#0d0012]'>
             {isLoading ? (
                 <Loader2 className="w-10 animate-spin" />
             ) : ( 
@@ -74,7 +74,7 @@ function page() {
                         <>
                 <div className='w-full h-full flex justify-center items-center'>
                     <div className='w-5xl min-h-[80vh] py-4'>
-                            <Card className='grid grid-cols-5 items-center min-h-50 overflow-hidden p-4 rounded-3xl'>
+                            <Card className='grid grid-cols-5 items-center min-h-50 overflow-hidden p-4 rounded-3xl bg-gradient-to-br from-blue-400 to-blue-300 border-none shadow-none'>
                               <div className='h-45 aspect-square rounded-xl overflow-hidden'>
                                 <img 
                                   src={professional?.profilePicture}
@@ -84,15 +84,15 @@ function page() {
                               </div>
                               <div className='flex flex-col gap-2 items-start h-full col-span-3'>
                                 <div>
-                                  <CardTitle className='text-2xl'>{professional?.fullname}</CardTitle>
-                                <CardDescription>{professional?.description}</CardDescription>
+                                  <CardTitle className='text-2xl text-white'>{professional?.fullname}</CardTitle>
+                                <CardDescription className='text-black'>{professional?.description}</CardDescription>
                                 </div>
                                 <div>
-                                  <p className='text-sm inline-block border-b text-gray-500'>Contacts</p>
+                                  <p className='text-sm inline-block border-b text-blue-950'>Contacts</p>
                                   <p className='text-sm'>{professional?.phone}</p>
                                 </div>
                                 <div>
-                                  <p className='text-sm inline-block border-b text-gray-500'>Locations</p>
+                                  <p className='text-sm inline-block border-b text-blue-950'>Locations</p>
                                   <p className='text-sm'>{professional?.location}</p>
                                 </div>
                                 

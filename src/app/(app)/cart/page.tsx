@@ -201,9 +201,9 @@ function page() {
 
 
   return (
-    <div className='flex justify-center w-full py-4 px-5 min-h-[80vh]'>
+    <div className='flex justify-center w-full py-4 px-5 min-h-[80vh] bg-[#0d0012]'>
       <div className='w-full max-w-6xl'>
-        <h1 className='text-3xl px-4 pb-4'>Cart</h1>
+        <h1 className='text-3xl px-4 pb-4 text-white'>Cart</h1>
         {isLoading ? (
           <div className='flex justify-center items-center w-full h-full'>
             <Loader2 className='w-10 h-10 animate-spin' />
@@ -215,16 +215,17 @@ function page() {
                 {cart && cart.length > 0 ? (
                   <div className='flex gap-4 pb-10'>
                     <div className='flex flex-col gap-2 w-200'>
-                      <Separator className='w-full'></Separator>
+                      {/* <Separator className='w-full'></Separator> */}
+                      <div className='bg-blue-500 h-[0.1px] w-full'></div>
                       {(cart as any).map((cartItem: any) => (
                         <>
-                          <Card key={cartItem._id} className='w-full h-24 border-none shadow-none overflow-hidden p-2'>
+                          <Card key={cartItem._id} className='w-full h-24 border-none shadow-none overflow-hidden p-2 bg-[#0d0012]'>
                             <div className='grid grid-cols-5 gap-2 w-full h-full'>
-                              <div className='flex border items-center justify-center overflow-hidden h-full w-30 rounded-lg'>
+                              <div className='flex items-center justify-center overflow-hidden h-full w-30 rounded-lg'>
                                 <img src={cartItem.professionalService.images[0]} alt="Service" className='w-full h-full object-cover' />
                               </div>
                               <div className='flex flex-col justify-between'>
-                                <CardTitle>{cartItem.professionalService.matchedServices.title}</CardTitle>
+                                <CardTitle className='text-white'>{cartItem.professionalService.matchedServices.title}</CardTitle>
                                 <div className='flex gap-2 items-center'>
                                   <div className='overflow-hidden'>
                                     <img
@@ -233,75 +234,78 @@ function page() {
                                       className='w-7 h-7 rounded-full object-cover'
                                     />
                                   </div>
-                                  <p>{cartItem.professionalService.matchedProfessionals.fullname}</p>
+                                  <p className='text-white'>{cartItem.professionalService.matchedProfessionals.fullname}</p>
                                 </div>
                               </div>
                               <div className='flex items-center'>
-                                <h3 className='font-light'>{((cartItem.professionalService.price) / 100).toFixed(2)} /-</h3>
+                                <h3 className='font-light text-white'>{((cartItem.professionalService.price) / 100).toFixed(2)} /-</h3>
                               </div>
                               <div className='flex items-center justify-center gap-2'>
-                                <div className='flex justify-center items-center bg-gray-300 w-5 h-5 rounded-sm shadow-sm'>
+                                <div className='flex justify-center items-center bg-gray-300 hover:bg-gray-400 w-5 h-5 rounded-sm shadow-sm'>
                                   <button onClick={() => handleQuantityUpdate(cartItem.professionalService._id, -1)}>
                                     <Minus className='w-3 h-3' />
                                   </button>
                                 </div>
-                                <h1 className='text-2xl font-light'>{cartItem.quantity}</h1>
-                                <div className='flex justify-center items-center bg-gray-300 w-5 h-5 rounded-sm shadow-sm'>
+                                <h1 className='text-2xl font-light text-white'>{cartItem.quantity}</h1>
+                                <div className='flex justify-center items-center bg-gray-300 hover:bg-gray-400 w-5 h-5 rounded-sm shadow-sm'>
                                   <button onClick={() => handleQuantityUpdate(cartItem.professionalService._id, 1)}>
                                     <Plus className='w-3 h-3' />
                                   </button>
                                 </div>
                               </div>
                               <div className='flex flex-col justify-between items-end'>
-                                <button onClick={() => handleDeleteItem(cartItem.professionalService._id)}>
-                                  <X className='w-4' />
+                                <button 
+                                  onClick={() => handleDeleteItem(cartItem.professionalService._id)}
+                                  className='hover:bg-gray-800 p-2 rounded-full'  
+                                >
+                                  <X className='w-4 h-4 text-gray-500' />
                                 </button>
                                 <div>
-                                  <h3 className='font-light'>{((cartItem.professionalService.price * cartItem.quantity) / 100).toFixed(2)} /-</h3>
+                                  <h3 className='font-light text-white'>{((cartItem.professionalService.price * cartItem.quantity) / 100).toFixed(2)} /-</h3>
                                 </div>
                               </div>
                             </div>
                           </Card>
-                          <Separator className='w-full'></Separator>
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                         </>
                       ))}
 
                     </div>
                     <div className='sticky top-22 self-start'>
-                      <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between'>
+                      <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/80 border-1 border-blue-950'>
                         <div className='flex flex-col items-center justify-center w-full h-40'>
-                          <p className='text-sm'>Total amount</p>
-                          <h1 className='text-2xl font-bold'>{total}</h1>
+                          <p className='text-sm text-white'>Total amount</p>
+                          <h1 className='text-2xl font-bold text-blue-400'>{total}</h1>
                         </div>
-                        <Separator />
+                        <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                         <div>
                           <p className='text-[12px] text-gray-700 font-semibold'>Order summary</p>
                           <div className='py-1'>
                             {cart.map((cartItem: any) =>
                               <div className='flex justify-between items-center'>
-                                <p className='text-xs text-gray-700'>{cartItem.professionalService.matchedServices.title}</p>
-                                <p className='text-xs text-gray-700'>{(((cartItem.professionalService.price) * cartItem.quantity) / 100).toFixed(2)}</p>
+                                <p className='text-xs text-gray-500'>{cartItem.professionalService.matchedServices.title}</p>
+                                <p className='text-xs text-gray-500'>{(((cartItem.professionalService.price) * cartItem.quantity) / 100).toFixed(2)}</p>
                               </div>
                             )}
                           </div>
                         </div>
-                        <Separator />
+                        <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                         <div className='flex justify-between items-center'>
-                          <p className='text-xs text-gray-700'>Subtotal</p>
-                          <p className='text-xs text-gray-700'>
+                          <p className='text-xs text-gray-500'>Subtotal</p>
+                          <p className='text-xs text-gray-500'>
                             {transformedSubTotal}
                           </p>
                         </div>
                         <div className='flex justify-between items-center'>
-                          <p className='text-xs text-gray-700'>Taxes</p>
-                          <p className='text-xs text-gray-700'>
+                          <p className='text-xs text-gray-500'>Taxes</p>
+                          <p className='text-xs text-gray-500'>
                             {taxes}
                           </p>
                         </div>
-                        <Separator />
+                        <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                         <div className='flex justify-between items-center py-3'>
-                          <h4 className='text-sm font-semibold'>Total</h4>
-                          <h4 className='text-sm font-semibold'>{total}</h4>
+                          <h4 className='text-sm font-semibold text-white'>Total</h4>
+                          <h4 className='text-sm font-semibold text-blue-400'>{total}</h4>
                         </div>
                         <div className='w-full'>
                           <Button
@@ -317,7 +321,7 @@ function page() {
                 ) : (
                   <>
                     <div className='flex flex-col gap-2 justify-center items-center w-full h-[50vh]'>
-                      <p>Your bag feels light, Fill it up with services.</p>
+                      <p className='text-white'>Your bag feels light, Fill it up with services.</p>
                       <Link href='/'>
                         <Button className='bg-blue-500 hover:bg-blue-700 w-38'>Browse services</Button>
                       </Link>
@@ -331,35 +335,36 @@ function page() {
                   <>
                     <div className='flex gap-4 pb-10'>
                       <div className='flex flex-col gap-2 w-200'>
-                        <Separator className='w-full'></Separator>
+                        {/* <Separator className='w-full'></Separator> */}
+                        <div className='bg-blue-500 h-[0.1px] w-full'></div>
                         {(cart as any).map((cartItem: any) => (
                           <>
-                            <Card key={cartItem._id} className='w-200 h-24 border-none shadow-none overflow-hidden p-2'>
+                            <Card key={cartItem._id} className='w-200 h-24 border-none shadow-none overflow-hidden p-2 bg-[#0d0012]'>
                               <div className='grid grid-cols-5 gap-2 w-full h-full'>
-                                <div className='flex border items-center justify-center overflow-hidden h-full w-30 rounded-md'>
+                                <div className='flex items-center justify-center overflow-hidden h-full w-30 rounded-md'>
                                   <img src={cartItem.professionalService.images[0]} alt="Service" className='w-full h-full object-cover' />
                                 </div>
                                 <div className='flex flex-col justify-between'>
-                                  <CardTitle>{cartItem.professionalService.matchedServices.title}</CardTitle>
+                                  <CardTitle className='text-white'>{cartItem.professionalService.matchedServices.title}</CardTitle>
                                   <div className='flex gap-2 items-center'>
                                     <img
                                       className='w-7 h-7 rounded-full object-cover'
                                       src={cartItem.professionalService.matchedProfessionals.profilePicture}
                                     />
-                                    <p>{cartItem.professionalService.matchedProfessionals.fullname}</p>
+                                    <p className='text-white'>{cartItem.professionalService.matchedProfessionals.fullname}</p>
                                   </div>
                                 </div>
                                 <div className='flex items-center'>
-                                  <h3 className='font-light'>{((cartItem.professionalService.price) / 100).toFixed(2)} /-</h3>
+                                  <h3 className='font-light text-white'>{((cartItem.professionalService.price) / 100).toFixed(2)} /-</h3>
                                 </div>
                                 <div className='flex items-center justify-center gap-2'>
-                                  <div className='flex justify-center items-center bg-gray-300 w-5 h-5 rounded-sm shadow-sm'>
+                                  <div className='flex justify-center items-center bg-gray-300 hover:bg-gray-400 w-5 h-5 rounded-sm shadow-sm'>
                                     <button onClick={() => handleQuantityUpdate(cartItem.professionalService._id, -1)}>
                                       <Minus className='w-3 h-3' />
                                     </button>
                                   </div>
-                                  <h1 className='text-2xl font-light'>{cartItem.quantity}</h1>
-                                  <div className='flex justify-center items-center bg-gray-300 w-5 h-5 rounded-sm shadow-sm'>
+                                  <h1 className='text-2xl font-light text-white'>{cartItem.quantity}</h1>
+                                  <div className='flex justify-center items-center bg-gray-300 hover:bg-gray-400 w-5 h-5 rounded-sm shadow-sm'>
                                     <button onClick={() => handleQuantityUpdate(cartItem.professionalService._id, 1)}>
                                       <Plus className='w-3 h-3' />
                                     </button>
@@ -368,55 +373,55 @@ function page() {
                                 <div className='flex flex-col justify-between items-end'>
                                   <button
                                     onClick={() => handleDeleteItem(cartItem.professionalService._id)}
-                                    className='hover:bg-gray-200 p-2 rounded-full'
+                                    className='hover:bg-gray-800 p-2 rounded-full'
                                   >
-                                    <X className='w-4 h-4' />
+                                    <X className='w-4 h-4 text-gray-500' />
                                   </button>
                                   <div>
-                                    <h3 className='font-light'>{((cartItem.professionalService.price * cartItem.quantity) / 100).toFixed(2)} /-</h3>
+                                    <h3 className='font-light text-white'>{((cartItem.professionalService.price * cartItem.quantity) / 100).toFixed(2)} /-</h3>
                                   </div>
                                 </div>
                               </div>
                             </Card>
-                            <Separator></Separator>
+                            <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           </>
                         ))}
                       </div>
                       <div className='sticky top-22 self-start'>
-                        <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between'>
+                        <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/80 border-1 border-blue-950'>
                           <div className='flex flex-col items-center justify-center w-full h-40'>
-                            <p className='text-sm'>Total amount</p>
-                            <h1 className='text-2xl font-bold'>{total}</h1>
+                            <p className='text-sm text-white'>Total amount</p>
+                            <h1 className='text-2xl font-bold text-blue-400'>{total}</h1>
                           </div>
-                          <Separator />
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           <div>
-                            <p className='text-[12px] text-gray-700 font-semibold'>Order summary</p>
+                            <p className='text-[12px] text-gray-500 font-semibold'>Order summary</p>
                             <div className='py-1'>
                               {cart.map((cartItem: any) =>
                                 <div className='flex justify-between items-center'>
-                                  <p className='text-xs text-gray-700'>{cartItem.professionalService.matchedServices.title}</p>
-                                  <p className='text-xs text-gray-700'>{(((cartItem.professionalService.price) * cartItem.quantity) / 100).toFixed(2)}</p>
+                                  <p className='text-xs text-gray-500'>{cartItem.professionalService.matchedServices.title}</p>
+                                  <p className='text-xs text-gray-500'>{(((cartItem.professionalService.price) * cartItem.quantity) / 100).toFixed(2)}</p>
                                 </div>
                               )}
                             </div>
                           </div>
-                          <Separator />
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           <div className='flex justify-between items-center'>
-                            <p className='text-xs text-gray-700'>Subtotal</p>
-                            <p className='text-xs text-gray-700'>
+                            <p className='text-xs text-gray-500'>Subtotal</p>
+                            <p className='text-xs text-gray-500'>
                               {transformedSubTotal}
                             </p>
                           </div>
                           <div className='flex justify-between items-center'>
-                            <p className='text-xs text-gray-700'>Taxes</p>
-                            <p className='text-xs text-gray-700'>
+                            <p className='text-xs text-gray-500'>Taxes</p>
+                            <p className='text-xs text-gray-500'>
                               {taxes}
                             </p>
                           </div>
-                          <Separator />
+                          <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                           <div className='flex justify-between items-center py-3'>
-                            <h4 className='text-sm font-semibold'>Total</h4>
-                            <h4 className='text-sm font-semibold'>{total}</h4>
+                            <h4 className='text-sm font-semibold text-white'>Total</h4>
+                            <h4 className='text-sm font-semibold text-blue-400'>{total}</h4>
                           </div>
 
                           <div className='w-full'>
@@ -434,8 +439,8 @@ function page() {
                 ) : (
                   <>
                     <div className='flex flex-col justify-center items-center w-full h-full'>
-                      <p>Your bag feels light, Fill it up with services.</p>
-                      <p>Add services or Login.</p>
+                      <p className='text-white'>Your bag feels light, Fill it up with services.</p>
+                      <p className='text-white'>Add services or Login.</p>
                       <div className='flex gap-4 m-2'>
                         <Link href='/'>
                           <Button className='bg-blue-500 hover:bg-blue-700 w-38'>Browse services</Button>

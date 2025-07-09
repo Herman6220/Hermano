@@ -159,10 +159,10 @@ function page() {
 
 
   return (
-    <div className="flex justify-center items-center w-full py-5 pb-15 min-h-[80vh]">
+    <div className="flex justify-center items-center w-full py-5 pb-15 min-h-[80vh] bg-[#0d0012]">
       
       {isLoading ? (
-        <Loader2 className='w-10 h-10 animate-spin' />
+        <Loader2 className='w-10 h-10 animate-spin text-blue-500' />
       ) : (
         <>
           
@@ -170,40 +170,40 @@ function page() {
             {searchResults && searchResults.length > 0 ? (
               <>
                 <div className='w-full flex items-center justify-between px-18 py-2 pb-4'>
-                  <h1 className='text-2xl'>Search results for '{searchTerm}'</h1>
+                  <h1 className='text-2xl text-white'>Search results for '{searchTerm}'</h1>
                   <div className='flex gap-2'>
                     <div ref={dropdownRef}>
                       <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className='p-2 rounded-full hover:bg-gray-200'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                        className='p-2 rounded-full hover:bg-gray-800'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                         </svg>
                       </button>
                       {isOpen && (
-                        <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-60 p-2 border-1 border-gray-300 flex flex-col gap-1">
+                        <div className="absolute right-90 mt-2 w-48 bg-black/80 rounded-md shadow-lg z-60 p-2 border-1 border-blue-950 flex flex-col gap-1">
                           <button
-                            className='text-left w-full hover:bg-gray-200 p-2 rounded-sm'
+                            className='text-left w-full hover:bg-gray-800 p-2 rounded-sm text-white'
                             onClick={() => setSortOption("")}>
                             Default
                           </button>
                           <button
-                            className='text-left w-full hover:bg-gray-200 p-2 rounded-sm'
+                            className='text-left w-full hover:bg-gray-800 p-2 rounded-sm text-white'
                             onClick={() => setSortOption("price-asc")}>
                             Price: Low to High
                           </button>
                           <button
-                            className='text-left w-full hover:bg-gray-200 p-2 rounded-sm'
+                            className='text-left w-full hover:bg-gray-800 p-2 rounded-sm text-white'
                             onClick={() => setSortOption("price-desc")}>
                             Price: High to Low
                           </button>
                           <button
-                            className='text-left w-full hover:bg-gray-200 p-2 rounded-sm'
+                            className='text-left w-full hover:bg-gray-800 p-2 rounded-sm text-white'
                             onClick={() => setSortOption("name-asc")}>
                             Name: A-Z
                           </button>
                           <button
-                            className='text-left w-full hover:bg-gray-200 p-2 rounded-sm'
+                            className='text-left w-full hover:bg-gray-800 p-2 rounded-sm text-white'
                             onClick={() => setSortOption("name-desc")}>
                             Name: Z-A
                           </button>
@@ -213,15 +213,15 @@ function page() {
                     <div ref={filterDropdownRef}>
                       <button
                         onClick={() => setIsFilterOpen(!isFilterOpen)}
-                        className='p-2 rounded-full hover:bg-gray-200'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                        className='p-2 rounded-full hover:bg-gray-800'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                         </svg>
                       </button>
                       {isFilterOpen && (
-                        <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-60 p-2 border-1 border-gray-300 flex flex-col gap-4">
+                        <div className="absolute right-79 mt-2 w-48 bg-black/80 rounded-md shadow-lg z-60 p-4 border-1 border-blue-950 flex flex-col gap-4">
                           <div className='flex flex-col gap-2'>
-                            <p>min: {range[0]} - max: {range[1]}</p>
+                            <p className='text-white'>min: {range[0]} - max: {range[1]}</p>
                             <Slider
                               value={range}
                               onValueChange={(val) => {
@@ -242,17 +242,17 @@ function page() {
                     </div>
                   </div>
                 </div>
+                <div className='h-[0.1px] w-4xl bg-blue-500'></div>
                 <div className='w-4xl'>
                   {searchResults.map((searchResult: any) =>
                     <div>
-                      <Separator />
                       <Card
                         onClick={() => {
                           setSelectedItem(searchResult.professionalService)
                           setIsModalOpen(!isModalOpen)
                         }}
-                        className='w-full h-34 grid grid-cols-5 px-4 py-4 shadow-none border-none my-2'>
-                        <div className='w-26 h-26 border rounded-2xl overflow-hidden'>
+                        className='w-full h-34 grid grid-cols-5 px-4 py-4 shadow-none border-none my-2 bg-[#0d0012]'>
+                        <div className='w-26 h-26 rounded-2xl overflow-hidden'>
                           <img
                             src={searchResult.professionalService.images[0]}
                             alt='service image'
@@ -266,29 +266,32 @@ function page() {
                                 src={searchResult?.professionalService.matchedProfessionals?.profilePicture}
                                 className='w-7 h-7 rounded-full object-cover'
                               />
-                              <CardTitle>{searchResult?.professionalService.matchedProfessionals.fullname}</CardTitle>
+                              <CardTitle className='text-white'>{searchResult?.professionalService.matchedProfessionals.fullname}</CardTitle>
                             </div>
                             <CardDescription className='truncate'>{searchResult?.professionalService.description}</CardDescription>
                           </div>
                           <div className='flex gap-2 items-center'>
                             <div className='flex'>
                               {[1, 2, 3, 4, 5].map((star) =>
-                                <Star className='w-3' fill={searchResult?.professionalService.averageRating >= star ? "black" : "none"} />
+                                <Star className='w-3' stroke='white' strokeWidth="0.5px" fill={searchResult?.professionalService.averageRating >= star ? "blue" : "none"} />
                               )}
                             </div>
-                            <div>{searchResult?.professionalService.reviewsCount}</div>
+                            <div><p className='text-white font-light'>{searchResult?.professionalService.reviewsCount}</p></div>
                           </div>
                         </div>
                         <div className='flex flex-col items-end justify-between'>
-                          <h1 className='text-3xl font-light'>{((searchResult?.professionalService.price) / 100).toFixed(2)} /-</h1>
+                          <h1 className='text-3xl font-light text-white'>{((searchResult?.professionalService.price) / 100).toFixed(2)} /-</h1>
                           <Button
-                            onClick={() => handleAddToCart(searchResult?.professionalService)}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleAddToCart(searchResult?.professionalService)}}
                             className='bg-blue-500 hover:bg-blue-700'
                           >Add to cart
                           </Button>
                         </div>
                       </Card>
-                      <Separator />
+                      {/* <Separator /> */}
+                      <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
                       <div>
                         {isModalOpen && (
                           <div
@@ -299,8 +302,8 @@ function page() {
                                 setIsModalOpen(false);
                               }
                             }}
-                            className="fixed inset-0 z-50 bg-white/20 flex items-center justify-center">
-                            <div className="bg-white rounded-3xl max-w-2xl w-full relative overflow-hidden shadow-md">
+                            className="fixed inset-0 bg-black/5  z-50 flex items-center justify-center ">
+                            <div className="bg-black/80 rounded-3xl max-w-2xl w-full relative overflow-hidden border border-blue-950">
                               <Carousel className=''>
                                 <CarouselContent>
                                   {selectedItem?.images.map((image: string) =>
@@ -313,8 +316,8 @@ function page() {
                                     </CarouselItem>
                                   )}
                                 </CarouselContent>
-                                <CarouselPrevious className='left-2' />
-                                <CarouselNext className='right-2' />
+                                <CarouselPrevious className='left-2 bg-blue border-none shadow-none text-gray-100' />
+                                <CarouselNext className='right-2 bg-blue border-none shadow-none text-gray-100' />
                               </Carousel>
                               <div className='p-4 pb-8'>
                                 <div className='flex justify-between mb-2'>
@@ -324,15 +327,20 @@ function page() {
                                       alt='profile-picture'
                                       className='w-8 h-8 object-cover rounded-full'
                                     />
-                                    <h2>{selectedItem?.matchedProfessionals.fullname}</h2>
+                                    <h2 className='text-white'>{selectedItem?.matchedProfessionals.fullname}</h2>
                                   </div>
-                                  <Button className='bg-blue-500 hover:bg-blue-700'>Add to cart</Button>
+                                  <Button 
+                                    onClick={() => {
+                                      console.log("clicked")
+                                      console.log(selectedItem)
+                                      handleAddToCart(selectedItem)}}
+                                    className='bg-blue-500 hover:bg-blue-700'>Add to cart</Button>
                                 </div>
                                 <div>
                                   <CardDescription>{selectedItem?.description}</CardDescription>
                                 </div>
                                 <div className='mt-4'>
-                                  <h1 className='text-2xl font-light'>{((selectedItem?.price) / 100).toFixed(2)} /-</h1>
+                                  <h1 className='text-2xl font-light text-white'>{((selectedItem?.price) / 100).toFixed(2)} /-</h1>
                                 </div>
                               </div>
                               <button
@@ -352,7 +360,7 @@ function page() {
               </>
 
             ) : (
-              <p>No professionals available for this service</p>
+              <p className='text-white'>No professionals available for this service</p>
             )}
           </div>
           

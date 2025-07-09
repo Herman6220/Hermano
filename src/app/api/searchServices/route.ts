@@ -61,7 +61,7 @@ export async function GET(request: Request){
     const professionalServices = await ServiceModel.aggregate([
       {
         $match: {
-          title: {$regex: escapedSearchTerm || "", $options: "i"}
+          title: {$regex: escapedSearchTerm || "", $options: "i"},
         }
       },
       {
@@ -71,6 +71,7 @@ export async function GET(request: Request){
           pipeline: [
             {
               $match: {
+                isServiceActive: true,
                 $expr: {
                   $eq: ["$serviceId", "$$serviceId"]
                 },
