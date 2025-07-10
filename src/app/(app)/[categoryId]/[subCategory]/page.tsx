@@ -51,11 +51,9 @@ function Page() {
             (subCategories as any).map((subCategory: any) => (
               <Card
                 key={subCategory._id}
-                className="w-100 h-60 hover:scale-105 transition-transform duration-300 rounded-3xl shadow-none bg-blue-500 border-none"
+                className="w-100 h-60 hover:scale-105 transition-transform px-6 duration-300 rounded-3xl shadow-none bg-blue-500 border-none"
                 onClick={() => handleNavigation(subCategory._id, subCategory.title)}>
-                <CardHeader>
-                  <CardTitle>{subCategory.title}</CardTitle>
-                </CardHeader>
+                  <CardTitle className='text-white'>{subCategory.title}</CardTitle>
               </Card>
             ))
           ) : (

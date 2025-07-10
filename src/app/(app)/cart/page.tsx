@@ -21,6 +21,7 @@ import { Customer } from '@/model/Customer'
 
 function page() {
   const [isLoading, setIsLoading] = useState(true)
+  const [isPurchasing, setIsPurchasing] = useState(false)
   const [cart, setCart] = useState<any>([])
   const [transformedSubTotal, setTransformedSubTotal] = useState(0)
   const [taxes, setTaxes] = useState(0)
@@ -143,10 +144,12 @@ function page() {
 
 
   const handlePurchase = async (cart: any) => {
+    setIsPurchasing(true)
     if (!session || session.user.activeRole !== "CUSTOMER") {
       toast("Error", {
         description: "Please login as a customer to make a purchase."
       })
+      setIsPurchasing(false)
       router.push("/sign-in");
       return;
     }
@@ -188,11 +191,16 @@ function page() {
           email: session.user.email
         }
       }
-
       const rzp = new (window as any).Razorpay(options);
       rzp.open()
     } catch (error) {
       console.error("An error occurred", error)
+      const axiosError = error as AxiosError<ApiResponse>
+      toast("Error", {
+        description: axiosError.response?.data.message
+      })
+    }finally{
+      setIsPurchasing(false)
     }
   }
 
@@ -272,7 +280,7 @@ function page() {
 
                     </div>
                     <div className='sticky top-22 self-start'>
-                      <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/80 border-1 border-blue-950'>
+                      <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/50 backdrop-blur-[5px] border-1 border-blue-950'>
                         <div className='flex flex-col items-center justify-center w-full h-40'>
                           <p className='text-sm text-white'>Total amount</p>
                           <h1 className='text-2xl font-bold text-blue-400'>{total}</h1>
@@ -313,7 +321,13 @@ function page() {
                               e.stopPropagation();
                               handlePurchase(cart);
                             }}
-                            className='w-full bg-blue-500 hover:bg-blue-700'>Checkout</Button>
+                            className='w-full bg-blue-500 hover:bg-blue-700'>
+                              {isPurchasing ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
+                                </>
+                              ) : ("Checkout")}
+                            </Button>
                         </div>
                       </Card>
                     </div>
@@ -388,7 +402,7 @@ function page() {
                         ))}
                       </div>
                       <div className='sticky top-22 self-start'>
-                        <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/80 border-1 border-blue-950'>
+                        <Card className='w-100 h-full flex flex-col gap-2 px-6 justify-between shadow-none bg-black/50 backdrop-blur-[5px] border-1 border-blue-950'>
                           <div className='flex flex-col items-center justify-center w-full h-40'>
                             <p className='text-sm text-white'>Total amount</p>
                             <h1 className='text-2xl font-bold text-blue-400'>{total}</h1>
@@ -430,7 +444,13 @@ function page() {
                                 e.stopPropagation();
                                 handlePurchase(cart);
                               }}
-                              className='w-full bg-blue-500 hover:bg-blue-700'>Login to Checkout</Button>
+                              className='w-full bg-blue-500 hover:bg-blue-700'>
+                                {isPurchasing ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
+                                </>
+                              ) : ("Login to Checkout")}
+                              </Button>
                           </div>
                         </Card>
                       </div>

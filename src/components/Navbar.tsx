@@ -77,7 +77,7 @@ function Navbar() {
 
 
   return (
-    <nav className='p-2 md:p-4 shadow-md sticky top-0 z-50 bg-blue-400 backdrop-blur-sm w-full flex items-center justify-between'>
+    <nav className='p-2 md:p-4 shadow-md sticky top-0 z-50 bg-blue-400 w-full flex items-center justify-between'>
       <div>
         <a className='text-xl font-bold' href='/'>Hermano.</a>
       </div>
@@ -118,24 +118,20 @@ function Navbar() {
           </span>
           {searchInput && !isGettingSuggestions && showSuggestions ? (
             suggestions.length > 0 ? (
-              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/80 border border-blue-950 rounded-lg shadow z-10'>
-                <ScrollArea className='max-h-40 flex flex-col'>
+              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/50 backdrop-blur-[5px] border border-blue-950 rounded-lg shadow z-10 overflow-hidden'>
+                <ScrollArea className='max-h-40 flex flex-col p-2'>
                 {suggestions.map((suggestion: any) =>
-                  <div
-                    className='px-4 py-2 hover:bg-gray-800 cursor-pointer'
-                  >
                     <button
                       onClick={() => handleNavigate(suggestion)}
-                      className='w-full bg-red text-left text-white'
+                      className='w-full text-left text-white hover:bg-gray-800 p-2 rounded-sm'
                     >
                       {suggestion}
                     </button>
-                  </div>
                 )}
                 </ScrollArea>
               </div>
             ) : (
-              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/80 border border-blue-950 rounded-lg shadow z-10'>
+              <div className='absolute top-full left-0 w-full mt-1 max-h-40 bg-black/50 backdrop-blur-[5px] border border-blue-950 rounded-lg shadow z-10'>
                 <div className='px-4 py-2 hover:bg-gray-800 cursor-pointer text-white'>No services found...</div>
               </div>
             )
@@ -173,7 +169,7 @@ function Navbar() {
             </div>
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-black/80 rounded-xl shadow-lg z-60 p-1 px-2 border-1 border-blue-950">
+              <div className="absolute right-0 mt-2 w-48 bg-black/50 backdrop-blur-[5px] rounded-xl shadow-lg z-60 p-1 px-2 border-1 border-blue-950">
                 <div >
                   {session ? (
                     <>

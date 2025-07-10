@@ -51,14 +51,14 @@ function page() {
     }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <ScrollArea className="w-full max-w-md p-6 bg-white rounded-lg shadow-md max-h-[90vh] overflow-hidden flex flex-col ">
+    <div className="flex justify-center items-center min-h-screen bg-[#0d0012]">
+      <ScrollArea className="w-full max-w-md p-6 bg-gradient-to-br from-violet-900/20 to-blue-700/80 border border-blue-950 rounded-lg shadow-md max-h-[90vh] overflow-hidden flex flex-col ">
         <div className='m-2'>
         <div className="text-center">
-          <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-6">
+          <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-6 text-blue-400">
             Sign Up as Customer
           </h1>
-          <p className="mb-4">
+          <p className="mb-4 text-white">
             Enter your details
           </p>
         </div>
@@ -72,9 +72,9 @@ function page() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className='text-white'>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field}
+                    <Input placeholder="email" className="text-white !placeholder-gray-400" {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -86,9 +86,9 @@ function page() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className='text-white'>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} 
+                <Input type="password" placeholder="password" className="text-white !placeholder-gray-400" {...field} 
                 />
               </FormControl>
               <FormMessage />
@@ -100,9 +100,9 @@ function page() {
           name="fullname"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel className='text-white'>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Johny Storm" {...field} 
+                <Input placeholder="Johny Storm" className="text-white !placeholder-gray-400" {...field} 
                 />
               </FormControl>
               <FormMessage />
@@ -114,9 +114,9 @@ function page() {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone number</FormLabel>
+              <FormLabel className='text-white'>Phone number</FormLabel>
               <FormControl>
-                <Input placeholder="phone no." {...field} 
+                <Input placeholder="phone no." className="text-white !placeholder-gray-400" {...field} 
                 />
               </FormControl>
               <FormMessage />
@@ -128,9 +128,9 @@ function page() {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel className='text-white'>Address</FormLabel>
               <FormControl>
-                <Input placeholder="address" {...field} 
+                <Input placeholder="address" className="text-white !placeholder-gray-400" {...field} 
                 />
               </FormControl>
               <FormMessage />
@@ -138,7 +138,7 @@ function page() {
           )}
         />
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting} className='w-full bg-blue-500 hover:bg-blue-700'>
           {
             isSubmitting ? (
               <>
@@ -151,9 +151,9 @@ function page() {
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
+          <p className='text-white'>
             Already a member?{" "}
-            <Link href="/sign-in" className="text-blue-700 hover:text-blue-800">
+            <Link href="/sign-in" className="text-blue-500 hover:text-blue-700">
               Sign in            
             </Link>
           </p>

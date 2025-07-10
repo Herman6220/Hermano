@@ -20,10 +20,13 @@ import { userSignInSchema } from "@/schemas/userSignInSchema";
 import { toast } from "sonner";
 import Link from "next/link";
 import { mergeGuestCart } from "@/lib/mergeGuestCart";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 
 function page(){
     const router = useRouter()
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm<z.infer<typeof userSignInSchema>>({
         resolver: zodResolver(userSignInSchema),
@@ -35,12 +38,14 @@ function page(){
 
 
     const onSubmit = async(data: z.infer<typeof userSignInSchema>) => {
+      setIsSubmitting(true)
       const result = await signIn("customer", {
         redirect: false,
         email: data.email,
         password: data.password
       })
       if(result?.error){
+        setIsSubmitting(false)
         if(result.error == "CustomerSignin"){
           toast("Login failed", {
             description: "Incorrect username or password"
@@ -53,6 +58,7 @@ function page(){
         }
       }
       if(result?.ok){
+        setIsSubmitting(false)
         await mergeGuestCart()
         router.push('/')
         console.log(result)
@@ -60,13 +66,13 @@ function page(){
     }
 
     return(
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+      <div className="flex justify-center items-center min-h-screen bg-[#0d0012]">
+        <div className="w-full max-w-md p-8 space-y-8 bg-gradient-to-br from-violet-900/20 to-blue-700/80 border border-blue-950 rounded-lg shadow-md">
           <div className="text-center">
-            <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-2">
+            <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-2 text-blue-400">
               Sign In as Customer
             </h1>
-            <p className="mb-4">
+            <p className="mb-4 text-white">
               Enter your email and passsword
             </p>
           </div>
@@ -77,9 +83,9 @@ function page(){
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white">Email</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input placeholder="email" className="text-white !placeholder-gray-400" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -90,21 +96,27 @@ function page(){
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white">Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} />
+                <Input type="password" placeholder="password" className="text-white !placeholder-gray-400" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">SignIn</Button>
+        <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-500 hover:bg-blue-700">
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
+            </>
+          ) : ("SignIn")}
+        </Button>
       </form>
     </Form>
     <div className="text-center mt-4">
-          <p>
+          <p className="text-white">
             Not a member?{" "}
-            <Link href="/sign-up" className="text-blue-700 hover:text-blue-800">
+            <Link href="/sign-up" className="text-blue-500 hover:text-blue-700">
               Sign up            
             </Link>
           </p>

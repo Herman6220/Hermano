@@ -100,9 +100,9 @@ function page() {
         })
       }
     } else {
-      addToLocalCart(professionalService)
+      const response = addToLocalCart(professionalService)
       toast("Success", {
-        description: "Item added successfully"
+        description: response
       })
     }
 
@@ -174,7 +174,7 @@ function page() {
                         </svg>
                       </button>
                       {isOpen && (
-                        <div className="absolute right-90 mt-2 w-48 bg-black/80 rounded-md shadow-lg z-60 p-2 border-1 border-blue-950 flex flex-col gap-1">
+                        <div className="absolute right-90 mt-2 w-48 bg-black/50 backdrop-blur-[5px] rounded-md shadow-lg z-60 p-2 border-1 border-blue-950 flex flex-col gap-1">
                           <button
                             className='text-left w-full text-white hover:bg-gray-800 p-2 rounded-sm'
                             onClick={() => setSortOption("")}>
@@ -212,7 +212,7 @@ function page() {
                         </svg>
                       </button>
                       {isFilterOpen && (
-                        <div className="absolute right-79 mt-2 w-48 bg-black/80 rounded-md shadow-lg z-60 p-2 border-1 border-blue-950 flex flex-col gap-4">
+                        <div className="absolute right-79 mt-2 w-48 bg-black/50 backdrop-blur-[5px] rounded-md shadow-lg z-60 p-2 border-1 border-blue-950 flex flex-col gap-4">
                           <div className='flex flex-col gap-2'>
                             <p className='text-white'>min: {range[0]} - max: {range[1]}</p>
                             <Slider
@@ -295,7 +295,7 @@ function page() {
                               }
                             }}
                             className="fixed inset-0 bg-black/5 z-50 flex items-center justify-center">
-                            <div className="bg-black/80 border-1 border-blue-950 rounded-3xl max-w-2xl w-full relative overflow-hidden shadow-md">
+                            <div className="bg-black/50 backdrop-blur-[5px] border-1 border-blue-950 rounded-3xl max-w-2xl w-full relative overflow-hidden shadow-md">
                               <Carousel className=''>
                                 <CarouselContent>
                                   {selectedItem?.images.map((image: string) =>

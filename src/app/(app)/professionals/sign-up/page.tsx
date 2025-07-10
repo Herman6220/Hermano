@@ -36,7 +36,7 @@ import {
 import { Loader2, X, Check, ChevronsUpDown } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { CldImage } from "next-cloudinary"
@@ -318,14 +318,14 @@ function page() {
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <ScrollArea className="w-full max-w-[800px] p-6 bg-white rounded-lg shadow-md max-h-[90vh] overflow-hidden flex flex-col ">
+        <div className="flex justify-center items-center min-h-screen bg-[#0d0012]">
+            <ScrollArea className="w-full  max-w-[800px] p-6 bg-gradient-to-br from-violet-900/20 to-blue-700/80 border border-blue-950 rounded-lg shadow-md max-h-[90vh] overflow-hidden flex flex-col ">
                 <div className="m-2">
                     <div className="text-center">
-                        <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-2">
+                        <h1 className="text-2xl font-extrabold tracking-tight lg:text-3xl mb-2 text-blue-400">
                             Sign Up as Professional
                         </h1>
-                        <p className="mb-4">
+                        <p className="mb-4 text-white">
                             Enter your details
                         </p>
                     </div>
@@ -336,9 +336,9 @@ function page() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel className="text-white">Email</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="email" {...field} />
+                                            <Input placeholder="email" className="text-white !placeholder-gray-400" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -349,9 +349,9 @@ function page() {
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Password</FormLabel>
+                                        <FormLabel className="text-white">Password</FormLabel>
                                         <FormControl>
-                                            <Input type="password" placeholder="password" {...field} />
+                                            <Input type="password" className="text-white !placeholder-gray-400" placeholder="password" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -362,9 +362,9 @@ function page() {
                                 name="fullname"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Full Name</FormLabel>
+                                        <FormLabel className="text-white">Full Name</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Full Name" {...field} />
+                                            <Input placeholder="Full Name" className="text-white !placeholder-gray-400" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -375,245 +375,23 @@ function page() {
                                 name="phone"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Phone</FormLabel>
+                                        <FormLabel className="text-white">Phone</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="phone" {...field} />
+                                            <Input placeholder="phone" className="text-white !placeholder-gray-400" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
-
-
-                            {/* <FormField
-                                control={form.control}
-                                name="services"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Choose services</FormLabel>
-                                        <FormControl>
-                                            <div className="p-4 bg-gray-50 rounded-xl" style={{ boxShadow: "inset 0 0 5px 0.5px rgba(0, 0, 0, 0.1)" }}>
-                                                <div className="flex flex-wrap gap-4 items-center justify-between">
-                                                    <div className="flex flex-col">
-                                                        <div className="flex flex-wrap gap-2 justify-between ">
-                                                            <Popover open={categoryOpen} onOpenChange={setCategoryOpen}>
-                                                                <PopoverTrigger asChild>
-                                                                    <Button
-                                                                        variant="outline"
-                                                                        role="combobox"
-                                                                        aria-expanded={categoryOpen}
-                                                                        className="w-[200px] justify-between overflow-hidden"
-                                                                    >
-                                                                        {categoryValue.length > 0
-                                                                            ? (categories as any).find((category: any) => category._id === categoryValue)?.title
-                                                                            : "Select category..."}
-                                                                        <ChevronsUpDown className="opacity-50" />
-                                                                    </Button>
-                                                                </PopoverTrigger>
-                                                                <PopoverContent className="w-[200px] p-0">
-                                                                    <Command>
-                                                                        <CommandInput placeholder="Search category..." className="h-9" />
-                                                                        <CommandList>
-                                                                            <CommandEmpty>No category found.</CommandEmpty>
-                                                                            <CommandGroup>
-                                                                                {(categories as any).map((category: any) => (
-                                                                                    <CommandItem
-                                                                                        key={category._id}
-                                                                                        value={category._id}
-                                                                                        onSelect={(currentValue) => {
-                                                                                            setCategoryValue(currentValue === categoryValue ? "" : currentValue)
-                                                                                            setCategoryOpen(false)
-                                                                                        }}
-                                                                                    >
-                                                                                        {category.title}
-                                                                                        <Check
-                                                                                            className={cn(
-                                                                                                "ml-auto",
-                                                                                                categoryValue === category._id ? "opacity-100" : "opacity-0"
-                                                                                            )}
-                                                                                        />
-                                                                                    </CommandItem>
-                                                                                ))}
-                                                                            </CommandGroup>
-                                                                        </CommandList>
-                                                                    </Command>
-                                                                </PopoverContent>
-                                                            </Popover>
-
-                                                            <Popover open={subCategoryOpen} onOpenChange={setSubCategoryOpen}>
-                                                                <PopoverTrigger asChild>
-                                                                    <Button
-                                                                        disabled={!categoryValue}
-                                                                        variant="outline"
-                                                                        role="combobox"
-                                                                        aria-expanded={subCategoryOpen}
-                                                                        className="w-[200px] justify-between overflow-hidden"
-                                                                    >
-                                                                        {subCategoryValue.length > 0
-                                                                            ? (subCategories as any).find((subCategory: any) => subCategory._id === subCategoryValue)?.title
-                                                                            : "Select sub category..."}
-                                                                        <ChevronsUpDown className="opacity-50" />
-                                                                    </Button>
-                                                                </PopoverTrigger>
-                                                                <PopoverContent className="w-[200px] p-0">
-                                                                    <Command>
-                                                                        <CommandInput placeholder="Search sub category..." className="h-9" />
-                                                                        <CommandList>
-                                                                            <CommandEmpty>No sub category found.</CommandEmpty>
-                                                                            <CommandGroup>
-                                                                                {(subCategories as any).map((subCategory: any) => (
-                                                                                    <CommandItem
-                                                                                        key={subCategory._id}
-                                                                                        value={subCategory._id}
-                                                                                        onSelect={(currentValue) => {
-                                                                                            setSubCategoryValue(currentValue === subCategoryValue ? "" : currentValue)
-                                                                                            setSubCategoryOpen(false)
-                                                                                        }}
-                                                                                    >
-                                                                                        {subCategory.title}
-                                                                                        <Check
-                                                                                            className={cn(
-                                                                                                "ml-auto",
-                                                                                                subCategoryValue === subCategory._id ? "opacity-100" : "opacity-0"
-                                                                                            )}
-                                                                                        />
-                                                                                    </CommandItem>
-                                                                                ))}
-                                                                            </CommandGroup>
-                                                                        </CommandList>
-                                                                    </Command>
-                                                                </PopoverContent>
-                                                            </Popover>
-
-                                                            <Popover open={serviceOpen} onOpenChange={setServiceOpen}>
-                                                                <PopoverTrigger asChild>
-                                                                    <Button
-                                                                        disabled={!subCategoryValue || !categoryValue}
-                                                                        variant="outline"
-                                                                        role="combobox"
-                                                                        aria-expanded={serviceOpen}
-                                                                        className="w-[200px] justify-between overflow-hidden"
-                                                                    >
-                                                                        {serviceValue.length > 0
-                                                                            ? (services as any).find((service: any) => service._id === serviceValue)?.title
-                                                                            : "Select service..."}
-                                                                        <ChevronsUpDown className="opacity-50" />
-                                                                    </Button>
-                                                                </PopoverTrigger>
-                                                                <PopoverContent className="w-[200px] p-0">
-                                                                    <Command>
-                                                                        <CommandInput placeholder="Search service..." className="h-9" />
-                                                                        <CommandList>
-                                                                            <CommandEmpty>No service found.</CommandEmpty>
-                                                                            <CommandGroup>
-                                                                                {(services as any).map((service: any) => (
-                                                                                    <CommandItem
-                                                                                        key={service._id}
-                                                                                        value={service._id}
-                                                                                        onSelect={(currentValue) => {
-                                                                                            setServiceValue(currentValue === serviceValue ? "" : currentValue)
-                                                                                            setServiceOpen(false)
-                                                                                        }}
-                                                                                    >
-                                                                                        {service.title}
-                                                                                        <Check
-                                                                                            className={cn(
-                                                                                                "ml-auto",
-                                                                                                serviceValue === service._id ? "opacity-100" : "opacity-0"
-                                                                                            )}
-                                                                                        />
-                                                                                    </CommandItem>
-                                                                                ))}
-                                                                            </CommandGroup>
-                                                                        </CommandList>
-                                                                    </Command>
-                                                                </PopoverContent>
-                                                            </Popover>
-                                                        </div>
-                                                        <div className="flex flex-wrap gap-2 justify-between my-1">
-                                                            <Input
-                                                                type="number"
-                                                                placeholder="price"
-                                                                value={servicePriceInput}
-                                                                onChange={(e) => setServicePriceInput(Number(e.target.value))}
-                                                                className="w-[200px] bg-white"
-                                                            />
-                                                            <Input
-                                                                placeholder="description"
-                                                                value={serviceDescInput}
-                                                                onChange={(e) => setServiceDescInput(e.target.value)}
-                                                                className="w-[200px] bg-white"
-                                                            />
-                                                            <Input
-                                                                type="file"
-                                                                name="serviceImages"
-                                                                multiple
-                                                                placeholder="Images"
-                                                                className="w-[200px] bg-white"
-                                                                onChange={(e) => setFiles(e.target.files)}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <Button
-                                                        type="button"
-                                                        onClick={() => {
-                                                            handleAddService()
-                                                        }}
-                                                        disabled={isAdding}
-                                                    >
-                                                        {isAdding ? (
-                                                            <>
-                                                                <Loader2 className="w-2 animate-spin" />
-                                                                <p>Please wait</p>
-                                                            </>
-                                                        ) : (
-                                                            <p>
-                                                                Add
-                                                            </p>
-                                                        )}
-                                                    </Button>
-                                                </div>
-                                                <Separator className="my-1 mb-2" />
-                                                <div className="flex flex-col gap-1">
-                                                    {displayServices.length > 0 ? (
-                                                        (displayServices as any).map((display: any) =>
-                                                            <Card className="relative group md:h-14 px-4 overflow-hidden rounded-sm  ">
-                                                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:place-items-center place-content-center">
-                                                                    <CardTitle className="truncate max-w-full">{display.serviceId}</CardTitle>
-                                                                    <div className="truncate max-w-full">{display.description}</div>
-                                                                    <div className="truncate max-w-full">{display.price}</div>
-                                                                </div>
-                                                                <Button
-                                                                    type="button"
-                                                                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                                                                    onClick={() => handleDeleteService(display.serviceId)}
-                                                                >
-                                                                    <X />
-                                                                </Button>
-                                                            </Card>
-                                                        )
-
-                                                    ) : (
-                                                        <p>No service added</p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            /> */}
-
                             <FormField
                                 control={form.control}
                                 name="description"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Description</FormLabel>
+                                        <FormLabel className="text-white">Description</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="description" {...field} />
+                                            <Input placeholder="description" className="text-white !placeholder-gray-400" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -625,22 +403,22 @@ function page() {
                                 name="experience"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Experience</FormLabel>
+                                        <FormLabel className="text-white">Experience</FormLabel>
                                         <FormControl>
                                             <Select onValueChange={(value) => field.onChange(Number(value))}
                                                 defaultValue={field.value !== undefined ? String(field.value) : undefined}>
-                                                <SelectTrigger className="w-[180px]">
+                                                <SelectTrigger className="w-[180px] text-gray-400">
                                                     <SelectValue placeholder="Select experience" />
                                                 </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectLabel>Select Experience</SelectLabel>
-                                                        <SelectItem value="0">Less than 1</SelectItem>
-                                                        <SelectItem value="1">1</SelectItem>
-                                                        <SelectItem value="2">2</SelectItem>
-                                                        <SelectItem value="3">3</SelectItem>
-                                                        <SelectItem value="4">4</SelectItem>
-                                                        <SelectItem value="5">More than 5</SelectItem>
+                                                <SelectContent className="bg-black/50 backdrop-blur-[5px] text-white">
+                                                    <SelectGroup >
+                                                        <SelectLabel className="">Select Experience</SelectLabel>
+                                                        <SelectItem value="0" className="text-white">Less than 1</SelectItem>
+                                                        <SelectItem value="1" className="text-white">1</SelectItem>
+                                                        <SelectItem value="2" className="text-white">2</SelectItem>
+                                                        <SelectItem value="3" className="text-white">3</SelectItem>
+                                                        <SelectItem value="4" className="text-white">4</SelectItem>
+                                                        <SelectItem value="5" className="text-white">More than 5</SelectItem>
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
@@ -654,9 +432,9 @@ function page() {
                                 name="location"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Location</FormLabel>
+                                        <FormLabel className="text-white">Location</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="location" {...field} />
+                                            <Input placeholder="location" className="text-white !placeholder-gray-400" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -667,7 +445,7 @@ function page() {
                                 name="profilePicture"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Profile Picture</FormLabel>
+                                        <FormLabel className="text-white">Profile Picture</FormLabel>
                                         <FormControl>
                                             <div className="flex gap-2">
                                                 <Input
@@ -677,11 +455,13 @@ function page() {
                                                         handleImageChange(e);
                                                         setFile(e.target.files?.[0] || null)
                                                     }}
+                                                    className="text-gray-400 file:text-white"
                                                 />
                                                 <Button
                                                     type="button"
                                                     disabled={isUploading}
                                                     onClick={() => {handleProfilePictureUpload()}}
+                                                    className="bg-blue-500 hover:bg-blue-700"
                                                 >
                                                     {isUploading ? (
                                                         <>
@@ -704,7 +484,7 @@ function page() {
                                     className="w-40 rounded-md"
                                 />
                             }
-                            <Button type="submit" disabled={isSubmitting}>
+                            <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-500 hover:bg-blue-700">
                                 {
                                     isSubmitting ? (
                                         <>
@@ -715,19 +495,19 @@ function page() {
                             </Button>
                         </form>
                     </Form>
-                    <div className="text-center mt-4">
+                    <div className="text-center mt-4 text-white">
                         <p>
-                            Not a member?{" "}
-                            <Link href="/professionals/sign-in" className="text-blue-700 hover:text-blue-800">
+                            Already a member?{" "}
+                            <Link href="/professionals/sign-in" className="text-blue-500 hover:text-blue-700">
                                 Sign in
                             </Link>
                         </p>
                     </div>
                 </div>
+                <ScrollBar 
+                 
+                />
             </ScrollArea>
-            <Button onClick={() => {
-                handleProfilePictureUpload();
-            }}>Test</Button>
         </div>
     )
 }
