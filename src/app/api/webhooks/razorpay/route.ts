@@ -28,7 +28,7 @@ export async function POST(request: Request){
         {razorpayOrderId: payment.order_id},
         {
           razorpayPaymentId: payment.id,
-          status: "PAID"
+          paymentStatus: "PAID"
         }
       )
 
