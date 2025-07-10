@@ -51,6 +51,20 @@ export async function POST(request: Request){
       // }
     }
 
+    if(event.event === "payment.failed"){
+      const payment = event.payload.payment.entity;
+
+      const order = await OrderModel.findOneAndUpdate(
+        {razorpayOrderId: payment.order_id},
+        {
+          razorpayPaymentId: payment.id,
+          paymentStatus: "FAILED"
+        }
+      )
+    }
+
+
+
     return Response.json({
       success: true,
       message: "Order completed"
