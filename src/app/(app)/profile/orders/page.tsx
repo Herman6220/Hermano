@@ -51,7 +51,7 @@ function page() {
                       <>
                       {/* <Separator></Separator> */}
                       <div className='bg-blue-500/30 h-[0.1px] w-full'></div>
-                        <Card className='w-full h-28 border-none shadow-none overflow-hidden p-4 bg-[#13000b]'>
+                        <Card className='w-full h-32 border-none shadow-none overflow-hidden p-4 bg-[#13000b]'>
                           <div className='grid grid-cols-7 gap-2 w-full h-full'>
                           <div className='flex items-center justify-center overflow-hidden h-full w-30 rounded-lg'>
                             <img 
@@ -99,9 +99,18 @@ function page() {
                               <h4 className='text-center text-white'>{((order.totalAmount)/100).toFixed(2)}</h4>
                             </div>
                           </div>
-                          <div className='flex items-end justify-end'>
-                            <div className='rounded-full bg-blue-500/50 border border-blue-500 w-3/4 py-1'>
-                              <p className='text-center text-xs text-blue-500'>{order.status}</p>
+                          <div className='flex flex-col gap-1 items-end justify-between'>
+                            <div className='w-3/4 flex flex-col items-center'>
+                              <p className='text-xs text-gray-500'>Service status:</p>
+                            <div className='rounded-full bg-blue-500/50 border border-blue-500 w-full py-1'>
+                              <p className='text-center text-xs text-blue-500 font-bold'>{order.status}</p>
+                            </div>
+                            </div>
+                            <div className='w-3/4 flex flex-col items-center'>
+                              <p className='text-xs text-gray-500'>Payment status:</p>
+                            <div className='rounded-full bg-orange-500/50 border border-orange-500 w-full py-1'>
+                              <p className='text-center text-xs text-orange-500 font-bold'>{order.paymentStatus}</p>
+                            </div>
                             </div>
                           </div>
                           </div>

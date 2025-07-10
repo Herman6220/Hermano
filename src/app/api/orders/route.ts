@@ -142,11 +142,11 @@ export async function POST(request: Request){
       }
     }, {status: 200})
     
-  } catch (error) {
+  } catch (error: any) {
     console.error("An unknown error occured", error)
     return Response.json({
       success: false,
-      message: "Internal server error"
+      message: error.error.description
     }, {status: 500})
   }
 }
