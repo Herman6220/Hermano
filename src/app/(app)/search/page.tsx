@@ -66,12 +66,12 @@ function page() {
       try {
         const params = getSearchParams();
         params.set('searchTerm', searchTerm);
-        console.log("Fetching with params:", params.toString());
+        // console.log("Fetching with params:", params.toString());
 
         router.push(`?${params.toString()}`, { scroll: false })
 
         const response = await axios.get(`/api/searchServices?${params.toString()}`);
-        console.log(response.data.message);
+        // console.log(response.data.message);
         setSearchResults(response.data.message);
         setGetMinMax(response.data.message);
       } catch (error) {
@@ -84,7 +84,7 @@ function page() {
       }
 
     }
-    console.log("searchTerm and sortOption", searchTerm, sortOption)
+    // console.log("searchTerm and sortOption", searchTerm, sortOption)
     fetchResults()
   }, [searchTerm, sortOption, minPriceValue, maxPriceValue])
 
@@ -92,7 +92,7 @@ function page() {
   const handleAddToCart = async (professionalService: any) => {
     if (session && session.user.activeRole === "CUSTOMER") {
       try {
-        console.log(professionalService)
+        // console.log(professionalService)
         const response = await axios.post('/api/customer/cart/save', { professionalService })
         toast("Success", {
           description: response.data.message
@@ -226,7 +226,6 @@ function page() {
                               value={range}
                               onValueChange={(val) => {
                                 const newRange = val as [number, number];
-                                console.log(newRange[0], newRange[1]);
                                 setRange(newRange);
                               }}
                               min={priceBounds[0]}
@@ -331,8 +330,6 @@ function page() {
                                   </div>
                                   <Button 
                                     onClick={() => {
-                                      console.log("clicked")
-                                      console.log(selectedItem)
                                       handleAddToCart(selectedItem)}}
                                     className='bg-blue-500 hover:bg-blue-700'>Add to cart</Button>
                                 </div>

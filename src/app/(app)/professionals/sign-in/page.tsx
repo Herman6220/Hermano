@@ -50,7 +50,7 @@ function page(){
           toast("Login failed", {
             description: "Incorrect username or password"
           })
-          console.log(result.error)
+          // console.log(result.error)
         }else{
           toast("Error", {
             description: result.error
@@ -60,7 +60,7 @@ function page(){
       if(result?.ok){
         setIsSubmitting(false)
         router.push('/professionals')
-        console.log(result)
+        // console.log(result)
       }
     }
 

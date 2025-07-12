@@ -40,7 +40,7 @@ function page() {
             router.replace('/')
             setIsSubmitting(false)
         } catch (error) {
-            console.error("Error in signup of user", error)
+            // console.error("Error in signup of user", error)
             const axiosError = error as AxiosError<ApiResponse>
             const errorMessage = axiosError.response?.data.message
             toast("signup failed", {

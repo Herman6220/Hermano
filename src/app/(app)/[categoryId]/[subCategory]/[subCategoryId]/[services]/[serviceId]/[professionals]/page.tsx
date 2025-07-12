@@ -67,10 +67,10 @@ function page() {
   const fetchProfessionalServices = useCallback(async () => {
     try {
       const params = getSearchParams();
-      console.log("Fetching with params:", params.toString());
+      // console.log("Fetching with params:", params.toString());
       router.push(`?${params.toString()}`, { scroll: false })
       const response = await axios.get(`/api/category/${categoryId}/subCategory/${subCategoryId}/services/${serviceId}/professionalServices?${params.toString()}`)
-      console.log(response.data.message)
+      // console.log(response.data.message)
       setProfessionalServices(response.data.message)
       setGetMinMax(response.data.message)
     } catch (error) {
@@ -90,7 +90,7 @@ function page() {
   const handleAddToCart = async (professionalService: any) => {
     if (session && session.user.activeRole === "CUSTOMER") {
       try {
-        console.log(professionalService)
+        // console.log(professionalService)
         const response = await axios.post('/api/customer/cart/save', { professionalService })
         toast("Success", {
           description: response.data.message
@@ -220,7 +220,6 @@ function page() {
                               value={range}
                               onValueChange={(val) => {
                                 const newRange = val as [number, number];
-                                console.log(newRange[0], newRange[1]);
                                 setRange(newRange);
                               }}
                               min={priceBounds[0]}

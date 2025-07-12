@@ -14,6 +14,7 @@ import { ApiResponse } from '@/types/ApiResponse';
 import { useDebounceCallback } from "usehooks-ts"
 import { Loader2 } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
+import { toast } from 'sonner';
 
 function Navbar() {
 
@@ -40,12 +41,15 @@ function Navbar() {
         setSuggestions([])
         try {
           const response = await axios.get(`/api/getSearchSuggestions?searchSuggestionTerm=${searchInput}`)
-          console.log(response.data.message)
-          console.log(isGettingSuggestions)
+          // console.log(response.data.message)
+          // console.log(isGettingSuggestions)
           setSuggestions(response.data.message)
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
-          console.log("Error", axiosError)
+          // console.log("Error", axiosError)
+          toast("Error", {
+            description: axiosError.response?.data.message
+          })
         } finally {
           setIsgettingSuggestions(false)
         }

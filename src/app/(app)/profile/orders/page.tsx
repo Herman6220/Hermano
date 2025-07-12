@@ -18,7 +18,7 @@ function page() {
     try {
       const response = await axios.get("/api/orders/getOrders")
       setOrders(response.data.message)
-      console.log(response.data.message)
+      // console.log(response.data.message)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
       toast("Error", {

@@ -50,7 +50,7 @@ function page(){
           toast("Login failed", {
             description: "Incorrect username or password"
           })
-          console.log(result.error)
+          // console.log(result.error)
         }else{
           toast("Error", {
             description: result.error
@@ -61,7 +61,7 @@ function page(){
         setIsSubmitting(false)
         await mergeGuestCart()
         router.push('/')
-        console.log(result)
+        // console.log(result)
       }
     }
 

@@ -18,7 +18,7 @@ async function dbConnect(): Promise<void> {
             throw new Error("MONGODB_URI is not defined in environment variables");
         }
         const db = await mongoose.connect(process.env.MONGODB_URI || "", {})
-        // console.log(db.connections);
+        console.log(db.connections);
         connection.isConnected = db.connections[0].readyState
 
         console.log("DB connected successfully");

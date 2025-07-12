@@ -51,18 +51,18 @@ function page() {
 
   const onSubmit = async (data: z.infer<typeof professionalServiceCreationSchema>) => {
 
-    console.log("services before submit", form.getValues("services"));
+    // console.log("services before submit", form.getValues("services"));
     setIsSubmitting(true)
     try {
-      console.log("data", data)
+      // console.log("data", data)
       const response = await axios.post<ApiResponse>("/api/create-professionalServices", data)
       toast("Success", {
         description: response.data.message
       })
-      console.log("services after submit", form.getValues("services"));
+      // console.log("services after submit", form.getValues("services"));
       fetchProfessionalServicesForProfessional()
     } catch (error) {
-      console.error("Error in creation of services", error)
+      // console.error("Error in creation of services", error)
       const axiosError = error as AxiosError<ApiResponse>;
       const errorMessage = axiosError.response?.data.message
       toast("Service creation failed", {
@@ -72,7 +72,7 @@ function page() {
       setIsSubmitting(false)
       form.setValue("services", [])
       setDisplayServices([])
-      console.log("finally block getValues", form.getValues("services"))
+      // console.log("finally block getValues", form.getValues("services"))
     }
   }
 
@@ -81,7 +81,7 @@ function page() {
     try {
       const response = await axios.patch("/api/professional/toggleIsServiceActive", { professionalServiceId })
       fetchProfessionalServicesForProfessional()
-      console.log(response.data.message)
+      // console.log(response.data.message)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
       toast("Error", {
@@ -96,7 +96,7 @@ function page() {
     try {
       const response = await axios.get("/api/professionalServicesForProfessional")
       setProfessionalServices(response.data.message || null)
-      console.log(response.data.message)
+      // console.log(response.data.message)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
       toast("Error", {
@@ -164,14 +164,14 @@ function page() {
 
   useEffect(() => {
     if (categoryValue.length !== 0) {
-      console.log("Category value is set now", categoryValue)
+      // console.log("Category value is set now", categoryValue)
       fetchSubCategory(categoryValue)
     }
   }, [fetchSubCategory, categoryValue])
 
   useEffect(() => {
     if (subCategoryValue.length !== 0) {
-      console.log("Category and subCategory value is set now", categoryValue, subCategoryValue)
+      // console.log("Category and subCategory value is set now", categoryValue, subCategoryValue)
       fetchService(subCategoryValue, categoryValue)
     }
   }, [subCategoryValue, categoryValue])
@@ -181,7 +181,7 @@ function page() {
     if (!files) {
       return
     }
-    console.log(files)
+    // console.log(files)
     const formData = new FormData()
     for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i])
@@ -217,8 +217,8 @@ function page() {
 
     if (fields.some(f => f.serviceId === serviceValue)) {
       toast("service already exists")
-      console.log("serviceValue", serviceValue)
-      console.log("serviceId", fields.some(f => f.serviceId))
+      // console.log("serviceValue", serviceValue)
+      // console.log("serviceId", fields.some(f => f.serviceId))
       return;
     }
 
@@ -235,7 +235,7 @@ function page() {
       });
 
       const test = form.getValues("services")
-      console.log(test)
+      // console.log(test)
       setDisplayServices(test)
 
       setServiceValue("");
@@ -244,7 +244,7 @@ function page() {
 
     } catch (error) {
       toast("Failed to add service");
-      console.error(error);
+      // console.error(error);
     } finally {
       setIsAdding(false)
     }
@@ -267,9 +267,9 @@ function page() {
 
   const handleDeleteDisplayedService = (serviceToDeleteId: string) => {
         const newServices = form.getValues("services")
-        console.log("newService", newServices)
+        // console.log("newService", newServices)
         const updatedServices = newServices.filter((n) => n.serviceId !== serviceToDeleteId)
-        console.log("deletedService", updatedServices)
+        // console.log("deletedService", updatedServices)
         if (updatedServices) {
             form.setValue("services", updatedServices)
             setDisplayServices(updatedServices)

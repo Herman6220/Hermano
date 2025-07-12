@@ -99,18 +99,18 @@ function page() {
         }
         setIsSubmitting(true)
         try {
-            console.log("whole form", form.getValues())
-            console.log("data", data)
+            // console.log("whole form", form.getValues())
+            // console.log("data", data)
             const finalData = form.getValues()
             const response = await axios.post<ApiResponse>("/api/professional/sign-up", data)
             toast("success", {
                 description: response.data.message
             })
-            console.log(response)
+            // console.log(response)
             router.replace(`/professionals`)
             setIsSubmitting(false)
         } catch (error) {
-            console.error("Error in signup of user", error)
+            // console.error("Error in signup of user", error)
             const axiosError = error as AxiosError<ApiResponse>;
             const errorMessage = axiosError.response?.data.message
             toast("Sign up failed", {
@@ -175,7 +175,7 @@ function page() {
         if (!files) {
             return
         }
-        console.log(files)
+        // console.log(files)
         const formData = new FormData()
         for (let i = 0; i < files.length; i++) {
             formData.append("files", files[i])
@@ -230,7 +230,7 @@ function page() {
             });
 
             const test = form.getValues("services")
-            console.log(test)
+            // console.log(test)
             setDisplayServices(test)
 
             setServiceValue("");
@@ -240,7 +240,7 @@ function page() {
 
         } catch (error) {
             toast("Failed to add service");
-            console.error(error);
+            // console.error(error);
         } finally {
             setIsAdding(false)
         }
@@ -248,9 +248,9 @@ function page() {
 
     const handleDeleteService = (serviceToDeleteId: string) => {
         const newServices = form.getValues("services")
-        console.log("newService", newServices)
+        // console.log("newService", newServices)
         const updatedServices = newServices.filter((n) => n.serviceId !== serviceToDeleteId)
-        console.log("deletedService", updatedServices)
+        // console.log("deletedService", updatedServices)
         if (updatedServices) {
             form.setValue("services", updatedServices)
             setDisplayServices(updatedServices)
@@ -263,7 +263,7 @@ function page() {
         setIsUploading(true)
         if (!file) return
 
-        console.log(file)
+        // console.log(file)
         const formData = new FormData()
         formData.append("file", file)
 
@@ -272,7 +272,7 @@ function page() {
             const url = response.data.message
             form.setValue("profilePicture", url, { shouldDirty: true })
             const test = form.getValues("profilePicture")
-            console.log(test)
+            // console.log(test)
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
             toast("Error", {
@@ -304,12 +304,12 @@ function page() {
 
 
     useEffect(() => {
-        console.log("Form errors:", form.formState.errors);
+        // console.log("Form errors:", form.formState.errors);
     }, [form.formState.errors]);
 
     useEffect(() => {
         if (displayServices.length > 0) {
-            console.log(displayServices)
+            // console.log(displayServices)
         }
 
     }, [displayServices])

@@ -36,7 +36,7 @@ function page() {
   const fetchCart = useCallback(async () => {
     setIsLoading(true)
 
-    console.log(session)
+    // console.log(session)
 
     if (status === "loading") return
 
@@ -44,11 +44,11 @@ function page() {
       try {
         const response = await axios.get('/api/customer/cart/get')
         setCart(response.data.message?.[0]?.cartItems || null)
-        console.log(response.data.message?.[0]?.cartItems)
-        console.log("cart", cart)
+        // console.log(response.data.message?.[0]?.cartItems)
+        // console.log("cart", cart)
 
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         const axiosError = error as AxiosError<ApiResponse>
         toast("Error", {
           description: axiosError.response?.data.message
@@ -58,7 +58,7 @@ function page() {
       }
     } else {
       const response = getLocalCart();
-      console.log(response)
+      // console.log(response)
       setCart(response)
       setIsLoading(false)
     }
@@ -90,8 +90,8 @@ function page() {
   }
 
   const handleQuantityUpdate = async (professionalServiceId: string, adjustment: number) => {
-    console.log(professionalServiceId, adjustment)
-    console.log(session)
+    // console.log(professionalServiceId, adjustment)
+    // console.log(session)
     if (session && session.user.activeRole === "CUSTOMER") {
       try {
         const response = await axios.patch('/api/customer/cart/update', { professionalServiceId, adjustment })
@@ -107,7 +107,7 @@ function page() {
       }
     } else {
       updateLocalCartQuantity(professionalServiceId, adjustment);
-      console.log(adjustment)
+      // console.log(adjustment)
       setCart((prev: any) => prev.map((item: any) =>
         item.professionalService._id === professionalServiceId
           ? { ...item, quantity: item.quantity + adjustment }
@@ -132,7 +132,7 @@ function page() {
   const fetchCustomer = async () => {
     try {
       const response = await axios.get("/api/customer/profile")
-      console.log("customer fetched", response.data.message)
+      // console.log("customer fetched", response.data.message)
       return response.data.message;
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
@@ -170,7 +170,7 @@ function page() {
 
     // cartForCheckout.push({ serviceLocation: serviceLocation })
 
-    console.log("cart for checkout", cartForCheckout)
+    // console.log("cart for checkout", cartForCheckout)
 
     try {
       const response = await axios.post("/api/orders", {cartForCheckout})
@@ -194,7 +194,7 @@ function page() {
       const rzp = new (window as any).Razorpay(options);
       rzp.open()
     } catch (error) {
-      console.error("An error occurred", error)
+      // console.error("An error occurred", error)
       const axiosError = error as AxiosError<ApiResponse>
       toast("Error", {
         description: axiosError.response?.data.message
