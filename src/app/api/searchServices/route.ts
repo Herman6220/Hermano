@@ -1,8 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
-import ProfessionalModel from "@/model/Professional";
-import ProfessionalServiceModel from "@/model/ProfessionalService";
+import CategoryModel from "@/model/Category";
 import ServiceModel from "@/model/Service";
-import { useSearchParams } from "next/navigation";
+import SubCategoryModel from "@/model/SubCategory";
 
 export async function GET(request: Request){
 
@@ -42,26 +41,24 @@ export async function GET(request: Request){
 
   const escapedSearchTerm = escapeRegex(searchTerm || "")
 
-    await dbConnect()
+  
 
   try {
-    // const services = await ServiceModel.find({
-    //   title: {$regex: searchTerm || "", $options: "i"}
-    // })
-    // const professionalServices = await ServiceModel.aggregate([
-    //   {$match: {title: {$regex: searchTerm || "", $options: "i"}}},
-    //   {$lookup: {
-    //     from: "professionalservices",
-    //     localField: "_id",
-    //     foreignField: "serviceId",
-    //     as: "matchedProfessionalServices"
-    //   }}
-    // ])
+
+    await dbConnect()
+
+    const categoryIdsArr = await CategoryModel.find({title: {$regex: escapedSearchTerm || "", $options: "i"}}, {_id: 1})
+    const categoryIds = categoryIdsArr.map((c: any) => c._id)
+    console.log(categoryIds)
+    const subCategoryIdsArr = await SubCategoryModel.find({title: {$regex: escapedSearchTerm || "", $options: "i"}})
+    const subCategoryIds = subCategoryIdsArr.map((s) => s._id)
 
     const professionalServices = await ServiceModel.aggregate([
       {
-        $match: {
-          title: {$regex: escapedSearchTerm || "", $options: "i"},
+        $match: {$or: [
+          {title: {$regex: escapedSearchTerm || "", $options: "i"}},
+          {category: {$in: categoryIds}},
+          {subCategory: {$in: subCategoryIds}}]
         }
       },
       {
